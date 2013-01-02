@@ -1,5 +1,6 @@
-%h1.inline My Accounts
-.btn.inline.pull-right= link_to 'New Account', new_account_path
-%br/
+- if current_user.accounts.present?
+  %h1.inline My Accounts
+  .btn.inline.pull-right= link_to 'New Account', new_account_path
+  %br
 
-= render 'block'
+  = render 'block'
