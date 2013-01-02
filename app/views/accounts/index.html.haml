@@ -1,0 +1,28 @@
+%h1.inline My Accounts
+.inline.pull-right= link_to 'New Account', new_account_path
+%br/
+
+- if @accounts.present?
+  %table.table.table-bordered.table-striped
+    %tr
+      %th Name
+      %th Balance
+      %th Allocation rate
+      %th Principal
+      %th User
+      %th
+    - @accounts.each do |account|
+      %tr
+        %td= account.name
+        %td= account.balance
+        %td= account.allocation_rate
+        %td= account.principal
+        %td= account.user_id
+        %td
+          = link_to 'Show', account
+          = link_to 'Edit', edit_account_path(account)
+          = link_to 'Destroy', account, method: :delete, data: { confirm: 'Are you sure?' }
+- else
+  %h3.text-warning You currently have no accounts
+  %h6.text-success ... click "New Account" below to create one
+
