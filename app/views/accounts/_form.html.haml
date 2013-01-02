@@ -1,0 +1,38 @@
+= form_for(@account) do |f|
+  - if @account.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@account.errors.count, "error")
+        prohibited this account from being saved:
+      %ul
+        - @account.errors.full_messages.each do |msg|
+          %li= msg
+  .field
+    = f.label :name
+    %br
+    = f.text_field :name
+  .field
+    .inline= label_tag "Risk Percentage: "
+    .inline#slider_val
+    .hidden= text_field_tag "allocation_rate"
+    #slider{:style => "width: 200px;"}
+    %p
+  .actions
+    %p
+    = f.submit
+
+:javascript
+  $(function() {
+    $( "#slider" ).slider({
+        range: "min",
+        min:0, 
+        max: 100, 
+        value: 0,
+        slide: function( event, ui ) {
+          $( "#allocation_rate" ).val( ui.value );
+          $( "#slider_val" ).html( ui.value );
+        }
+    });
+    $( "#allocation_rate" ).val( $( "#slider" ).slider( "value" ) );
+    $( "#slider_val" ).html( $( "#slider" ).slider( "value" ) );
+  });

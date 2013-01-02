@@ -70,9 +70,10 @@ class AccountsController < ApplicationController
   # PUT /accounts/1.json
   def update
     @account = Account.find(params[:id])
-
     respond_to do |format|
       if @account.update_attributes(params[:account])
+        @account.allocation_rate = params[:allocation_rate]
+        @account.save
         format.html { redirect_to accounts_path, notice: 'Account was successfully updated.' }
         format.json { head :no_content }
       else
