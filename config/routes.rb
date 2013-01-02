@@ -10,6 +10,7 @@ Deltafin::Application.routes.draw do
   root :to => 'high_voltage/pages#show', :id => 'index'
 
   match "transfer_from"  => "accounts#transfer_from"
+  match "transfer"       => "accounts#transfer"
 
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'

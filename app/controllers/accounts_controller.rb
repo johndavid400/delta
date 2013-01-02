@@ -8,7 +8,6 @@ class AccountsController < ApplicationController
     redirect_to root_path
   end
 
-
   # GET /accounts
   # GET /accounts.json
   def index
@@ -94,4 +93,23 @@ class AccountsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def transfer_from
+    @account = Account.find(params[:account_id])
+    @to_accounts = current_user.accounts.select{|s| s!= @account }
+  end
+
+  def transfer
+    to_account = Account.find(params[:to_account])
+    from_account = Account.find(params[:from_account])
+
+    from_account.balance = from_account.balance - BigDecimal.new(params[:amount])
+    to_account.balance = to_account.balance + BigDecimal.new(params[:amount])
+
+    from_account.save
+    to_account.save
+
+    redirect_to accounts_path
+  end
+
 end

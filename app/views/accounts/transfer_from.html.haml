@@ -1,0 +1,16 @@
+%h3 Transfer money from:
+.account_block
+  .row
+    .span6
+      %h4= @account.name
+    .span5
+      = "Account Balance: #{number_to_currency(@account.balance)}"
+%h3 Transfer money to:
+.account_block
+  .row
+    .span6
+      = form_tag transfer_path do
+        = select_tag :to_account, options_from_collection_for_select(@to_accounts, :id, :name)
+        = text_field_tag :amount
+        = hidden_field_tag :from_account, @account.id
+        = submit_tag
