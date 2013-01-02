@@ -6,24 +6,30 @@
     = javascript_include_tag "application"
     = csrf_meta_tags
   %body
+    .container-fluid.top-bar
+      .container
+        .row
+          .logo-image
+            = link_to image_tag("Delta.png", :size => "50x50"), root_path
+            %h1.inline= "Delta Financial"
+          .sign_in_form.pull-right
+            = form_tag user_session_path do
+              = text_field_tag 'user[email]'
+              = password_field_tag 'user[password]'
+              %button Sign in
+
+    .container-fluid.menu-bar
+      .container
+        .row.links
+          %h4= link_to "Home", root_path
+          %h4= link_to "What is Delta Trade?", page_path("about")
+          %h4= link_to "Why Delta Trade?", page_path("why_delta")
+          - if user_signed_in?
+            %h4= link_to "My Accounts", accounts_path
+            %h4= link_to 'Logout', destroy_user_session_path, :method => :delete
+          - else
+            %h4= link_to 'Login', new_user_session_path
     .container
-      .row
-        .navbar
-          .navbar-inner
-            %a.brand{:href => root_path} Delta Trade
-            %ul.nav
-              %li
-                %a{:href => root_path} Home
-              %li
-                %a{:href => page_path("about")} What is Delta Trade?
-              - if user_signed_in?
-                %li
-                  = link_to "My Accounts", accounts_path
-                %li
-                  = link_to('Logout', destroy_user_session_path, :method => :delete)
-              - else
-                %li
-                  = link_to('Login', new_user_session_path)
       .row
         %center
           - if alert
