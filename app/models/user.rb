@@ -20,4 +20,20 @@ class User < ActiveRecord::Base
     return account
   end
 
+  def total_account_balance
+    self.accounts.map{|s| s.balance }.sum
+  end
+
+  def total_principal_balance
+    self.accounts.map{|s| s.principal }.sum
+  end
+
+  def total_return_rate
+    (total_account_balance / total_principal_balance) - 1
+  end
+
+  def total_earned
+    total_account_balance - total_principal_balance
+  end
+
 end

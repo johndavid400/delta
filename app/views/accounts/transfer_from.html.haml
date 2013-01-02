@@ -8,9 +8,32 @@
 %h3 Transfer money to:
 .account_block
   .row
-    .span6
-      = form_tag transfer_path do
+    = form_tag transfer_path do
+      .span4
         = select_tag :to_account, options_from_collection_for_select(@to_accounts, :id, :name)
-        = text_field_tag :amount
+      .span4
+        .inline= label_tag "Transfer Amount: "
+        .inline#slider_val
+        .hidden= text_field_tag :amount
+        #slider{:style => "width: 200px;"}
+      .span3
         = hidden_field_tag :from_account, @account.id
-        = submit_tag
+        = submit_tag nil, :class => "btn btn-success"
+
+= link_to "Cancel Transfer", accounts_path, :class => "btn btn-danger"
+
+:javascript
+  $(function() {
+    $( "#slider" ).slider({
+        range: "min",
+        min:0, 
+        max: "#{@account.balance.to_i}", 
+        value: 0,
+        slide: function( event, ui ) {
+          $( "#amount" ).val( ui.value );
+          $( "#slider_val" ).html( "$" + ui.value + ".00 of #{number_to_currency(@account.balance)}");
+        }
+    });
+    $( "#amount" ).val( $( "#slider" ).slider( "value" ) );
+    $( "#slider_val" ).html( '$' + $( "#slider" ).slider( "value" ) + ".00 of #{number_to_currency(@account.balance)}" );
+  });

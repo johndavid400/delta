@@ -1,24 +1,69 @@
 .account_block
   .row
+    .span1
+      = image_tag("plus.png", size: "30x30", :id => "toggle_account_balance")
+    .span4
+      %h4 Total Balance
     .span3
-      %h4= current_user.bank_account.name
+      = number_to_currency(current_user.total_account_balance)
     .span3
-      = "Account Balance: #{number_to_currency(current_user.bank_account.balance)}"
-    .span2
+      = "#{current_user.total_return_rate}% Returns since #{current_user.created_at.strftime("%B %Y")}"
+  .row#account_balance
+    .span1
+    .span6
+      %table.table.table-bordered.table-striped
+        %tr
+          %td
+            %h5 Total Returns
+          %td
+            = "#{current_user.total_return_rate}%"
+        %tr
+          %td
+            %h5 What you've invested
+          %td
+            = number_to_currency(current_user.total_principal_balance)
+        %tr
+          %td
+            %h5 What you've earned
+          %td
+            = number_to_currency(current_user.total_earned)
     .span3
-      .btn= link_to 'Transfer', transfer_from_path(account_id: current_user.bank_account)
-      .btn= link_to 'Edit', edit_account_path(current_user.bank_account)
+
 - @accounts.each do |account|
-  - unless account == current_user.bank_account
-    .account_block
-      .row
-        .span3
-          %h4= account.name
-        .span3
-          = "Account Balance: #{number_to_currency(account.balance)}"
-        .span2
-          = "Allocation Rate: #{account.allocation_rate}"
-        .span3
-          .btn= link_to 'Transfer', transfer_from_path(account_id: account)
-          .btn= link_to 'Edit', edit_account_path(account)
-          .btn= link_to 'Destroy', account, method: :delete, data: { confirm: 'Are you sure?' }
+  .account_block
+    .row
+      .span1
+        = image_tag("plus.png", size: "30x30", :id => "toggle_account_#{account.id}")
+      .span2
+        %h4= account.name
+      .span3
+        = "Account Balance: #{number_to_currency(account.balance)}"
+      .span2
+        = "Allocation Rate: #{account.allocation_rate}"
+      .span3
+        = link_to 'Transfer', transfer_from_path(account_id: account), :class => "btn"
+        = link_to 'Edit', edit_account_path(account), :class => "btn"
+        = link_to 'Destroy', account, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn"
+    %div{:class => "row", :id => "account_#{account.id}"}
+      .span11
+        Lorizzle fizzle fo shizzlin dizzle, doggy adipiscing crazy. Fo sapien velizzle, gangster volutpizzle, suscipizzle ass, brizzle i'm in the shizzle, bling bling. Sheezy fo shizzle tortizzle. Sizzle erizzle. Yippiyo break it down dolizzle nizzle for sure things fo. Bling bling i saw beyonces tizzles and my pizzle went crizzle nibh get down get down dang. My shizz izzle sheezy. Pimpin' dang rhoncus yo. In hac check out this platea dictumst. Boom shackalack dapibizzle. Shiz tellus pimpin', pretizzle fo shizzle, mattizzle ac, break yo neck, yall vitae, nunc. Its fo rizzle suscipizzle. Integizzle shit daahng dawg sizzle purizzle. Dope da bomb leo boom shackalack nisi.
+
+    :javascript
+      $(document).ready(function(){
+        $("#account_#{account.id}").hide();    
+      });
+      $(function() {
+        $("#toggle_account_#{account.id}").click(function() {
+           $("#account_#{account.id}").slideToggle();    
+        }); 
+      });
+
+:javascript
+  $(document).ready(function(){
+    $("#account_balance").hide();    
+  });
+  $(function() {
+    $("#toggle_account_balance").click(function() {
+       $("#account_balance").slideToggle();    
+    }); 
+  });
