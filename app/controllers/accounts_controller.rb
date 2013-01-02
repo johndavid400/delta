@@ -52,9 +52,13 @@ class AccountsController < ApplicationController
   def create
     @account = @user.accounts.new(params[:account])
 
+    @account.balance = BigDecimal.new(0)
+    @account.principal = BigDecimal.new(0)
+    @account.allocation_rate = 10
+
     respond_to do |format|
       if @account.save
-        format.html { redirect_to @account, notice: 'Account was successfully created.' }
+        format.html { redirect_to accounts_path, notice: 'Account was successfully created.' }
         format.json { render json: @account, status: :created, location: @account }
       else
         format.html { render action: "new" }
@@ -70,7 +74,7 @@ class AccountsController < ApplicationController
 
     respond_to do |format|
       if @account.update_attributes(params[:account])
-        format.html { redirect_to @account, notice: 'Account was successfully updated.' }
+        format.html { redirect_to accounts_path, notice: 'Account was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

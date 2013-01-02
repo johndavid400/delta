@@ -1,0 +1,13 @@
+- @accounts.each do |account|
+  .account_block
+    .row
+      .span3
+        %h4= account.name
+      .span3
+        = "Account Balance: #{number_to_currency(account.balance)}"
+      .span2
+        = "Allocation Rate: #{account.allocation_rate}"
+      .span3
+        .btn= link_to 'Transfer', transfer_from_path(account)
+        .btn= link_to 'Edit', edit_account_path(account)
+        .btn= link_to 'Destroy', account, method: :delete, data: { confirm: 'Are you sure?' }

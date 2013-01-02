@@ -1,0 +1,21 @@
+- if @accounts.present?
+  %table.table.table-bordered.table-striped
+    %tr
+      %th Name
+      %th Balance
+      %th Allocation rate
+      %th Principal
+      %th
+    - @accounts.each do |account|
+      %tr
+        %td= account.name
+        %td= number_to_currency(account.balance)
+        %td= account.allocation_rate
+        %td= number_to_currency(account.principal)
+        %td
+          = link_to 'Edit', edit_account_path(account)
+          = link_to 'Destroy', account, method: :delete, data: { confirm: 'Are you sure?' }
+- else
+  %h3.text-warning You currently have no accounts
+  %h6.text-success ... click "New Account" to create one
+
