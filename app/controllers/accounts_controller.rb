@@ -51,9 +51,8 @@ class AccountsController < ApplicationController
   def create
     @account = @user.accounts.new(params[:account])
 
-    @account.balance = BigDecimal.new(0)
-    @account.principal = BigDecimal.new(0)
-    @account.allocation_rate = 10
+    @account.balance = 0
+    @account.principal = 0
 
     respond_to do |format|
       if @account.save
