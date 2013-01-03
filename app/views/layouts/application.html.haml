@@ -14,8 +14,8 @@
             %h1.inline= "Delta Financial"
           .sign_in_form.pull-right
             = form_tag user_session_path do
-              = text_field_tag 'user[email]'
-              = password_field_tag 'user[password]'
+              = text_field_tag 'user[email]', "email"
+              = password_field_tag 'user[password]', "password"
               %button.sign_in_btn.btn.btn-info Sign in
 
     .container-fluid.menu-bar
@@ -41,6 +41,9 @@
 
     .container-fluid.footer
       .container
-        %h4= link_to "Home", root_path
+        %center
+          %h4.inline= link_to "Home", root_path
+          %h4.inline= link_to "Join", new_user_registration_path
+          %h4.inline= link_to "Login", new_user_session_path
 
 

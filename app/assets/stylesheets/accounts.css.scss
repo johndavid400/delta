@@ -67,9 +67,13 @@
 .footer{
   height: 44px;
   background-color: #24427d;
+  margin-top: 20px;
   a {
     color: white;
     text-decoration: none;
+  }
+  .inline{
+    margin-right: 40px;
   }
 }
 
