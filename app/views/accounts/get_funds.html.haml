@@ -1,0 +1,37 @@
+%h4 Transfer Funds from Bank Account
+
+= form_tag infuse_path do
+  %h5.text-error= "Transfer from:"
+  %p
+  = select_tag :bank, options_for_select(@banks.collect{ |u| [u["name"], u["amount"]] }) 
+  %p
+  .inline= label_tag "Transfer Amount: "
+  .inline#slider_val
+  %p
+  .hidden= text_field_tag :amount
+  %p
+  #slider{:style => "width: 200px;"}
+  %p
+  %h5.text-success= "Transfer to:"
+  %p
+  = select_tag :account, options_from_collection_for_select(current_user.accounts, :id, :name) 
+  %p
+  = submit_tag
+
+:javascript
+  $(function() {
+    $("#bank").change(function(){
+      $( "#slider" ).slider({
+          range: "min",
+          min:0, 
+          max: document.getElementById("bank").value, 
+          value: 0,
+          slide: function( event, ui ) {
+            $( "#amount" ).val( ui.value );
+            $( "#slider_val" ).html( "$" + ui.value + ".00 of $" + document.getElementById("bank").value + ".00" );
+          }
+      });
+      $( "#amount" ).val( $( "#slider" ).slider( "value" ) );
+      $( "#slider_val" ).html( '$' + $( "#slider" ).slider( "value" ) + ".00 of $" + document.getElementById("bank").value + ".00" );
+    });
+  });

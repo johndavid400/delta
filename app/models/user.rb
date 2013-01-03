@@ -29,11 +29,19 @@ class User < ActiveRecord::Base
   end
 
   def total_return_rate
-    (total_account_balance / total_principal_balance) - 1
+    if total_account_balance == 0
+      "0.0"
+    else
+      (total_account_balance / total_principal_balance) - 1
+    end
   end
 
   def total_earned
     total_account_balance - total_principal_balance
+  end
+
+  def average_risk
+    accounts.map{|s| s.allocation_rate }.sum / accounts.count
   end
 
 end

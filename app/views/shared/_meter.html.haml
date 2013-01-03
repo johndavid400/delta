@@ -1,13 +1,13 @@
-%div{:id => "meter_#{account.id}"}
+%div{:id => "meter_#{account['id']}"}
   .arrowCap
   .arrow
   %p.meterText Risk Meter
 
 :javascript
   $(function(){
-    var arrow = $('#meter_#{account.id} .arrow');
+    var arrow = $('#meter_#{account['id']} .arrow');
     $(document).ready(function() {
-      var calculated = "#{account.allocation_rate}";
+      var calculated = "#{account['allocation_rate'].to_i}";
       var prop = 'rotate('+(calculated)+'deg)';
       // Rotate the arrow
       arrow.css({

@@ -3,14 +3,16 @@
     .span1
       = image_tag("plus.png", size: "30x30", :id => "toggle_account_balance")
     .span4
-      %h4 Total Balance
-    .span3
-      = number_to_currency(current_user.total_account_balance)
-    .span3
-      = "#{current_user.total_return_rate}% Returns since #{current_user.created_at.strftime("%B %Y")}"
+      %h4 Total Accounts Balance
+    .span2
+      %h4= number_to_currency(current_user.total_account_balance)
+    .span4
+      %h4= "#{current_user.total_return_rate}% return since #{current_user.created_at.strftime("%B %Y")}"
   .row#account_balance
+    %hr
     .span1
-    .span6
+    .span5
+      %h4 Return on Investment
       %table.table.table-bordered.table-striped
         %tr
           %td
@@ -28,6 +30,14 @@
           %td
             = number_to_currency(current_user.total_earned)
     .span3
+      %center
+        %h4 Total Risk
+      = render 'shared/meter', :account => {"id" => "999", "allocation_rate" => current_user.average_risk}
+    .span2
+      %h4 Account actions
+      .acct_actions
+        = link_to 'Get Funds', get_funds_path, :class => "btn btn-info"
+        %p
 
 - @accounts.each do |account|
   .account_block
@@ -39,13 +49,38 @@
       .span2
         %h4.pull-right= "Balance: #{number_to_currency(account.balance)}"
     %div{:class => "row", :id => "account_#{account.id}"}
+      %hr
+      .span1
       .span5
+        %h4 Return on Investment
+        %table.table.table-bordered.table-striped
+          %tr
+            %td
+              %h5 Total Returns
+            %td
+              = "#{account.return_rate}%"
+          %tr
+            %td
+              %h5 What you've invested
+            %td
+              = number_to_currency(account.principal)
+          %tr
+            %td
+              %h5 What you've earned
+            %td
+              = number_to_currency(account.earned)
       .span3
+        %center
+          %h4 Risk Assessment
         = render 'shared/meter', :account => account
-      .span3
-        = link_to 'Transfer', transfer_from_path(account_id: account), :class => "btn"
-        = link_to 'Edit', edit_account_path(account), :class => "btn"
-        = link_to 'Destroy', account, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn"
+      .span2
+        %h4 Account actions
+        .acct_actions
+          = link_to 'Transfer', transfer_from_path(account_id: account), :class => "btn btn-info"
+          %p
+          = link_to 'Edit', edit_account_path(account), :class => "btn btn-default"
+          %p
+          = link_to 'Destroy', account, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-danger"
 
     :javascript
       $(document).ready(function(){
