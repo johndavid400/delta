@@ -18,23 +18,26 @@
           %td
             %h5 Total Returns
           %td
-            = "#{current_user.total_return_rate}%"
+            %center
+              = "#{current_user.total_return_rate}%"
         %tr
           %td
             %h5 What you've invested
           %td
-            = number_to_currency(current_user.total_principal_balance)
+            %center
+              = number_to_currency(current_user.total_principal_balance)
         %tr
           %td
             %h5 What you've earned
           %td
-            = number_to_currency(current_user.total_earned)
+            %center
+              = number_to_currency(current_user.total_earned)
     .span3
       %center
         %h4 Total Risk
       = render 'shared/meter', :account => {"id" => "999", "allocation_rate" => current_user.average_risk}
     .span2
-      %h4 Account actions
+      %h4 Actions
       .acct_actions
         = link_to 'Get Funds', get_funds_path, :class => "btn btn-info"
         %p
@@ -58,23 +61,26 @@
             %td
               %h5 Total Returns
             %td
-              = "#{account.return_rate}%"
+              %center
+                = "#{account.return_rate}%"
           %tr
             %td
               %h5 What you've invested
             %td
-              = number_to_currency(account.principal)
+              %center
+                = number_to_currency(account.principal)
           %tr
             %td
               %h5 What you've earned
             %td
-              = number_to_currency(account.earned)
+              %center
+                = number_to_currency(account.earned)
       .span3
         %center
           %h4 Risk Assessment
         = render 'shared/meter', :account => account
       .span2
-        %h4 Account actions
+        %h4 Actions
         .acct_actions
           = link_to 'Transfer', transfer_from_path(account_id: account), :class => "btn btn-info"
           %p
@@ -101,3 +107,4 @@
        $("#account_balance").slideToggle();    
     }); 
   });
+

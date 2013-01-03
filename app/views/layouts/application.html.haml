@@ -4,6 +4,7 @@
     %title Deltafin
     = stylesheet_link_tag    "application", :media => "all"
     = javascript_include_tag "application"
+    = render 'layouts/fonts'
     = csrf_meta_tags
   %body
     .container-fluid.top-bar
@@ -29,7 +30,7 @@
             %h4= link_to 'Logout', destroy_user_session_path, :method => :delete
           - else
             %h4= link_to 'Login', new_user_session_path
-    .container
+    .container.main_body
       .row
         %center
           - if alert
@@ -39,8 +40,8 @@
       .row
         = yield
 
-    .container-fluid.footer
-      .container
+    .container-fluid
+      .footer
         %center
           %h4.inline= link_to "Home", root_path
           %h4.inline= link_to "Join", new_user_registration_path
