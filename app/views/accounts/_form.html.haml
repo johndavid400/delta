@@ -12,7 +12,7 @@
     %br
     = f.text_field :name
   .field
-    .inline= label_tag "Risk Percentage: "
+    .inline= label_tag "Risk: "
     .inline#slider_val
     .hidden= text_field_tag "allocation_rate"
     #slider{:style => "width: 200px;"}
@@ -25,9 +25,9 @@
   $(function() {
     $( "#slider" ).slider({
         range: "min",
-        min:0, 
-        max: 100, 
-        value: 0,
+        min:-125, 
+        max: 125, 
+        value: "#{@account.allocation_rate}",
         slide: function( event, ui ) {
           $( "#allocation_rate" ).val( ui.value );
           $( "#slider_val" ).html( ui.value );

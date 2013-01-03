@@ -1,0 +1,22 @@
+%div{:id => "meter_#{account.id}"}
+  .arrowCap
+  .arrow
+  %p.meterText Risk Meter
+
+:javascript
+  $(function(){
+    var arrow = $('#meter_#{account.id} .arrow');
+    $(document).ready(function() {
+      var calculated = "#{account.allocation_rate}";
+      var prop = 'rotate('+(calculated)+'deg)';
+      // Rotate the arrow
+      arrow.css({
+        '-moz-transform':prop,
+        '-webkit-transform':prop,
+        '-o-transform':prop,
+        '-ms-transform':prop,
+        'transform':prop
+      });
+    });
+  });
+

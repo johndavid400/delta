@@ -39,7 +39,7 @@
       .span3
         = "Account Balance: #{number_to_currency(account.balance)}"
       .span2
-        = "Allocation Rate: #{account.allocation_rate}"
+        = render 'shared/meter', :account => account
       .span3
         = link_to 'Transfer', transfer_from_path(account_id: account), :class => "btn"
         = link_to 'Edit', edit_account_path(account), :class => "btn"

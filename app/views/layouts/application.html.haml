@@ -16,7 +16,7 @@
             = form_tag user_session_path do
               = text_field_tag 'user[email]'
               = password_field_tag 'user[password]'
-              %button Sign in
+              %button.sign_in_btn.btn.btn-info Sign in
 
     .container-fluid.menu-bar
       .container
@@ -38,3 +38,9 @@
             %p.alert-message.info.alert.alert-success= notice
       .row
         = yield
+
+    .container-fluid.footer
+      .container
+        %h4= link_to "Home", root_path
+
+

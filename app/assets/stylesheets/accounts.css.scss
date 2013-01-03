@@ -64,6 +64,14 @@
   }
 }
 
+.footer{
+  height: 44px;
+  background-color: #24427d;
+  a {
+    color: white;
+    text-decoration: none;
+  }
+}
 
 .menu-bar{
   height: 43px;
@@ -90,3 +98,12 @@
 .button{
   margin-top: 20px;
 }
+
+.sign_in_btn{
+  margin-top: -10px;
+}
+
+.new_acct_btn{
+  margin-top: 10px;
+}
+
